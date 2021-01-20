@@ -48,7 +48,7 @@ Reads a stream for a request. Returns a request as a struct with the following f
 
 * `:method` string, the HTTP method.
 * `:path` string, the URI path.
-* `:query` struct, the URI query string. If no query, field is omitted.
+* `:query` struct, the URI query paramaters. If no query, field is omitted.
 * `:headers` struct, the HTTP headers.
 * `:body` string, the request body. If no body, field is omitted.
 
@@ -85,7 +85,7 @@ Returns nil, or raises an error if the write failed.
 Write a request to a stream where `request` is a struct or table with the following fields:
 
 * `:method` string, the HTTP method. Optional. Defaults to `"GET"`.
-* `:uri` string, the HTTP uri. Optional. Defaults to `"/"`.
+* `:uri` string, the HTTP URI. Optional. Defaults to `"/"`.
 * `:headers` struct or table, the HTTP headers. `"Host"` is required.
 * `:body` string, the HTTP body. Optional.
 
