@@ -20,7 +20,8 @@
             :pairs (sequence :pair (any (sequence "&" :pair)))
             :pair  (sequence (cmt (capture :valid) ,url/unescape) "=" (cmt (capture :valid) ,url/unescape))
             :valid (any (choice :w :hex (set "-._~!$'()*+,;:@/?")))}
-         :frag (sequence "#" (to " "))}
+         :frag 
+           (sequence "#" (to " "))}
       :headers  
         {:main (sequence (constant :headers) (group (some :pair)))
          :pair (sequence (capture (to ": ")) ": " (capture (to :crlf)) :crlf)}
