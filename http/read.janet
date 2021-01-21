@@ -39,8 +39,6 @@
       :crlf
         "\r\n"}))
 
-# HTTP Decode ---------------------------------------------
-
 (defn- array/zip [arr]
   (postwalk (fn [x] (if (array? x) (table ;x) x)) arr))
 
