@@ -1,2 +1,2 @@
-(import ./read  :export :true)
-(import ./write :export :true)
+(import ./read  :export true)
+(import ./write :export true)
