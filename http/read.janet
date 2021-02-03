@@ -1,5 +1,7 @@
 (import url)
 
+(def- max-size 8192)
+
 (def- $request 
   (peg/compile
     ~{:main
@@ -43,10 +45,20 @@
 (defn- array/zip [arr]
   (postwalk (fn [x] (if (array? x) (table ;x) x)) arr))
 
-(defn- parse [pattern stream]
+(defn- head-end? [http]
+  (string/has-suffix? "\r\n\r\n" http))
+
+(defn- read-stream [stream]
   (def http @"") 
-  (while (not (string/has-suffix? "\r\n\r\n" http)) (net/read stream 1 http)) 
-  (when-let [http  (array/zip (peg/match pattern http))]
+  (var size 0) 
+  (while (and (< size max-size) (not (head-end? http))) 
+    (net/read stream 1 http) 
+    (++ size))
+  (string http))
+
+(defn- parse [pattern stream]
+  (when-let [http  (read-stream stream)
+             http  (array/zip (peg/match pattern http))]
     (if-let [heads (get http :headers)
              size  (get heads "Content-Length")
              size  (scan-number size)]
