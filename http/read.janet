@@ -2,29 +2,29 @@
 
 (def- max-size 8192)
 
-(def- $request 
+(def- $request
   (peg/compile
     ~{:main
         (sequence :method " " :uri " HTTP/1.1" :crlf :headers :crlf)
       :method
-        (sequence (constant :method) (capture (to " "))) 
-      :uri      
+        (sequence (constant :method) (capture (to " ")))
+      :uri
         {:main (sequence :path (opt :query) (opt :frag))
-         :hex 
+         :hex
            {:main (sequence "%" :hexd :hexd)
             :hexd (choice :d (range "af") (range "AF"))}
-         :path  
+         :path
            {:main  (sequence (constant :path) (cmt (capture :root) ,url/unescape))
             :root  (some (sequence "/" (any :valid)))
             :valid (choice :w :hex (set "-._~!$&'()*+,;=:@"))}
-         :query 
+         :query
            {:main  (sequence "?" (constant :query) (group :pairs))
             :pairs (sequence :pair (any (sequence "&" :pair)))
             :pair  (sequence (cmt (capture :valid) ,url/unescape) "=" (cmt (capture :valid) ,url/unescape))
             :valid (any (choice :w :hex (set "-._~!$'()*+,;:@/?")))}
-         :frag 
+         :frag
            (sequence "#" (to " "))}
-      :headers  
+      :headers
         {:main (sequence (constant :headers) (group (some :pair)))
          :pair (sequence (capture (to ": ")) ": " (capture (to :crlf)) :crlf)}
       :crlf
@@ -32,7 +32,7 @@
 
 (def- $response
   (peg/compile
-    ~{:main 
+    ~{:main
         (sequence "HTTP/1.1 " :status :crlf :headers :crlf)
       :status
         (sequence (constant :status) (cmt (capture 3) ,scan-number) (to :crlf))
@@ -49,10 +49,10 @@
   (string/has-suffix? "\r\n\r\n" http))
 
 (defn- read-stream [stream]
-  (def http @"") 
-  (var size 0) 
-  (while (and (< size max-size) (not (head-end? http))) 
-    (net/read stream 1 http) 
+  (def http @"")
+  (var size 0)
+  (while (and (< size max-size) (not (head-end? http)))
+    (net/read stream 1 http)
     (++ size))
   (string http))
 

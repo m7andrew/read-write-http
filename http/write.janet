@@ -50,7 +50,7 @@
 (defn request
   [stream {:method method :uri uri :headers headers :body body}]
   (assert (get headers "Host") "header \"Host\" required")
-  (net/write stream 
+  (net/write stream
     (string/format "%s %s HTTP/1.1\r\n%s\r\n\r\n%s"
       (or method "GET")
       (or uri "/")
@@ -60,8 +60,8 @@
 (defn response
   [stream {:status code :headers headers :body body}]
   (default headers {})
-  (net/write stream 
-    (string/format "HTTP/1.1 %s\r\n%s\r\n\r\n%s" 
+  (net/write stream
+    (string/format "HTTP/1.1 %s\r\n%s\r\n\r\n%s"
       (get status code "200 OK")
       (headers->string (merge (content-length body) headers))
       (string body))))
