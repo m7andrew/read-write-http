@@ -1,17 +1,18 @@
 
-[Janet](https://janet-lang.org/) library to make reading and writing HTTP/1.1 streams easier.
+A small [Janet](https://janet-lang.org/) library to make reading and writing HTTP/1.1 streams easier. With Janet's built-in [net library](https://janet-lang.org/api/net.html), you can write terse HTTP code without a large framework.
 
-* [Read Request](#read-request)
-* [Read Response](#read-response)
-* [Write Request](#write-request)
-* [Write Response](#write-response)
+## Install
 
-### Examples
+```
+jpm install https://github.com/m7andrew/read-write-http
+```
+
+## Examples
 
 ```clojure
 (use http)
 
-(def response 
+(def response
   {:status 200
    :headers {"Content-Type" "text/plain"}
    :body "Hello World"})
@@ -40,9 +41,18 @@
 ```
 > Send a request.
 
+## Functions
+
+* [Read Request](#read-request)
+* [Read Response](#read-response)
+* [Write Request](#write-request)
+* [Write Response](#write-response)
+
 ### Read Request
 
-`(read/request stream)`
+```clojure
+(read/request stream)
+```
 
 Reads a stream for a request. Returns a request as a struct with the following fields:
 
@@ -56,7 +66,9 @@ Returns nil if no request could be read.
 
 ### Read Response
 
-`(read/response stream)`
+```clojure
+(read/response stream)
+```
 
 Reads a stream for a response. Returns a response as a struct with the following fields:
 
@@ -68,7 +80,9 @@ Returns nil if no response could be read.
 
 ### Write Response
 
-`(write/response stream response)`
+```clojure
+(write/response stream response)
+```
 
 Write a response to a stream where `response` is a struct or table with the following fields:
 
@@ -80,7 +94,9 @@ Returns nil, or raises an error if the write failed.
 
 ### Write Request
 
-`(write/request stream request)`
+```clojure
+(write/request stream request)
+```
 
 Write a request to a stream where `request` is a struct or table with the following fields:
 
