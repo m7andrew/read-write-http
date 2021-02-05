@@ -78,20 +78,6 @@ Reads a stream for a response. Returns a response as a struct with the following
 
 Returns nil if no response could be read.
 
-### Write Response
-
-```clojure
-(write/response stream response)
-```
-
-Write a response to a stream where `response` is a struct or table with the following fields:
-
-* `:status` number, the HTTP status code. Optional. Defaults to `200`
-* `:headers` struct or table, the HTTP headers. Optional. `"Content-Length"` is automatically set.
-* `:body` string, the HTTP body. Optional.
-
-Returns nil, or raises an error if the write failed.
-
 ### Write Request
 
 ```clojure
@@ -103,6 +89,20 @@ Write a request to a stream where `request` is a struct or table with the follow
 * `:method` string, the HTTP method. Optional. Defaults to `"GET"`.
 * `:uri` string, the HTTP URI. Optional. Defaults to `"/"`.
 * `:headers` struct or table, the HTTP headers. `"Host"` is required.
+* `:body` string, the HTTP body. Optional.
+
+Returns nil, or raises an error if the write failed.
+
+### Write Response
+
+```clojure
+(write/response stream response)
+```
+
+Write a response to a stream where `response` is a struct or table with the following fields:
+
+* `:status` number, the HTTP status code. Optional. Defaults to `200`
+* `:headers` struct or table, the HTTP headers. Optional. `"Content-Length"` is automatically set.
 * `:body` string, the HTTP body. Optional.
 
 Returns nil, or raises an error if the write failed.
