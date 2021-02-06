@@ -43,12 +43,7 @@ jpm install https://github.com/m7andrew/read-write-http
 
 ## Functions
 
-* [Read Request](#read-request)
-* [Read Response](#read-response)
-* [Write Request](#write-request)
-* [Write Response](#write-response)
-
-### Read Request
+#### Read Request
 
 ```clojure
 (read/request stream)
@@ -64,7 +59,7 @@ Reads a stream for a request. Returns a request as a struct with the following f
 
 Returns nil if no request could be read.
 
-### Read Response
+#### Read Response
 
 ```clojure
 (read/response stream)
@@ -78,7 +73,7 @@ Reads a stream for a response. Returns a response as a struct with the following
 
 Returns nil if no response could be read.
 
-### Write Request
+#### Write Request
 
 ```clojure
 (write/request stream request)
@@ -93,7 +88,7 @@ Write a request to a stream where `request` is a struct or table with the follow
 
 Returns nil, or raises an error if the write failed.
 
-### Write Response
+#### Write Response
 
 ```clojure
 (write/response stream response)
