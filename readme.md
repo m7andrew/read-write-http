@@ -1,4 +1,6 @@
 
+# Read Write HTTP
+
 A small [Janet](https://janet-lang.org/) library to make reading and writing HTTP/1.1 streams easier. With Janet's built-in [net library](https://janet-lang.org/api/net.html), you can write terse HTTP code without a large framework.
 
 ## Install
@@ -8,6 +10,8 @@ jpm install https://github.com/m7andrew/read-write-http
 ```
 
 ## Examples
+
+A minimal server:
 
 ```clojure
 (use http)
@@ -24,7 +28,8 @@ jpm install https://github.com/m7andrew/read-write-http
 
 (net/server "localhost" 8000 handler)
 ```
-> Minimal server
+
+Send a request:
 
 ```clojure
 (use http)
@@ -39,7 +44,6 @@ jpm install https://github.com/m7andrew/read-write-http
 (pp (read/response stream))
 (net/close stream)
 ```
-> Send a request.
 
 ## Functions
 
